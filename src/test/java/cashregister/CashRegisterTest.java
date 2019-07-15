@@ -39,7 +39,11 @@ public class CashRegisterTest {
 
     @Test
     public void should_print_the_stub_purchase_when_call_process() {
-
+        Purchase purchase = mock(Purchase.class);
+        CashRegister cashRegister = new CashRegister(new Printer());
+        when(purchase.asString()).thenReturn("Apple 1.0");
+        cashRegister.process(purchase);
+        assertEquals("Apple 1.0", outContent.toString());
     }
 
     @Test
