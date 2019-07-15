@@ -1,7 +1,6 @@
 package cashregister;
 
 
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -10,7 +9,6 @@ import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.mockito.Mockito.*;
 
 public class CashRegisterTest {
@@ -48,7 +46,10 @@ public class CashRegisterTest {
 
     @Test
     public void should_verify_with_process_call_with_mockito() {
-
+        Purchase purchase = mock(Purchase.class);
+        CashRegister cashRegister = new CashRegister(new Printer());
+        cashRegister.process(purchase);
+        verify(purchase).asString();
     }
 
 }
