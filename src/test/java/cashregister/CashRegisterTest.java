@@ -31,7 +31,9 @@ public class CashRegisterTest {
         Item[] items = {new Item("Apple", 1.0)};
         Purchase purchase = new Purchase(items);
         CashRegister cashRegister = new CashRegister(new Printer());
+
         cashRegister.process(purchase);
+
         assertEquals(purchase.asString(), outContent.toString());
     }
 
@@ -40,16 +42,21 @@ public class CashRegisterTest {
         Purchase purchase = mock(Purchase.class);
         CashRegister cashRegister = new CashRegister(new Printer());
         when(purchase.asString()).thenReturn("Apple 1.0");
+
         cashRegister.process(purchase);
+
         assertEquals("Apple 1.0", outContent.toString());
     }
 
     @Test
     public void should_verify_with_process_call_with_mockito() {
         Purchase purchase = mock(Purchase.class);
-        CashRegister cashRegister = new CashRegister(new Printer());
+        Printer printer = mock(Printer.class);
+        CashRegister cashRegister = new CashRegister(printer);
+
         cashRegister.process(purchase);
-        verify(purchase).asString();
+
+        verify(printer).print(purchase.asString());
     }
 
 }
